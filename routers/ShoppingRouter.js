@@ -1,18 +1,34 @@
-const express = require('express');
+const express = require("express");
 const ShoppingRouter = express.Router();
-const {addShopping, getShoppingByUser} = require('../controllers/Shopping');
-const { login, signup, protect } = require("../controllers/Auth");
+const {
+  getAllShoppingcart,
+  addShopping,
+  getShoppingByUser,
+  payShoppingcart,
+  deleteShopping,
+} = require("../controllers/Shopping");
+const { protect } = require("../controllers/Auth");
 
-ShoppingRouter
-    .route("/")
-    // .all(protect)
-    .post(addShopping);
+//all shopping cards
+ShoppingRouter.route("/")
+.all(protect)
+.get(getAllShoppingcart);
 
-ShoppingRouter
-    .route("/:user")
-    // .all(protect)
-    .get(getShoppingByUser)
-    // .put(editProduct)
-    // .delete(deleteProduct);
+//shopping card by user
+ShoppingRouter.route("/user")
+.all(protect)
+.get(getShoppingByUser);
+
+ShoppingRouter.route("/product/")
+.all(protect)
+.post(addShopping);
+
+ShoppingRouter.route("/product/:id")
+.all(protect)
+.delete(deleteShopping);
+
+ShoppingRouter.route("/pay/")
+.all(protect)
+.post(payShoppingcart);
 
 module.exports = ShoppingRouter;

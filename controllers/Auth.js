@@ -60,14 +60,14 @@ const protect = catchAsync(async (req, res, next) => {
     }
     const decoded = promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-    console.log(decoded);
-    req.user = decoded;
-    next();
+    decoded.then(datos=>{
+        req.user =datos;
+        console.log("decode token:",req.user);
+        next();
+    });
+    
     
 });
-
-
-
 
 
 module.exports = {
