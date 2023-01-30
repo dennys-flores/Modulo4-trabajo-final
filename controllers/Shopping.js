@@ -2,7 +2,7 @@ const Shopping = require("../models/ShoppingCart");
 const catchAsync = require("../utils/catchAsync");
 
 const getAllShoppingcart = async (req, res) => {
-  const shoppingcart = await Shoppingcart.find();
+  const shoppingcart = await Shopping.find();
   res.status(200).json({
     status: "ok",
     data: shoppingcart,
